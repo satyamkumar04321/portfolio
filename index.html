@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satyam Kumar · portfolio</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ===== RESET & VARIABLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      --bg: #f4f7fb;
+      --surface: rgba(255, 255, 255, 0.6);
+      --text: #0b1e33;
+      --text-light: #2c3e50;
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --border: rgba(0, 0, 0, 0.05);
+      --shadow: 0 8px 24px rgba(0, 20, 40, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
+      --glow: 0 10px 30px -8px rgba(0, 100, 200, 0.25);
+      --nav-bg: rgba(255, 255, 255, 0.7);
+      --primary: #1e4a6f;
+      --primary-light: #2c6b9e;
+      --skill-bar: #d9e2ec;
+      --skill-fill: #1e4a6f;
+      --toggle-icon: #f1c40f;
+      transition: background 0.3s, color 0.2s;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+
+    body.dark {
+      --bg: #0a1420;
+      --surface: rgba(20, 30, 45, 0.7);
+      --text: #edf2f9;
+      --text-light: #b0c4de;
+      --card-bg: rgba(30, 41, 59, 0.6);
+      --border: rgba(255, 255, 255, 0.05);
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      --nav-bg: rgba(10, 20, 30, 0.8);
+      --primary: #3b82f6;
+      --primary-light: #6096fd;
+      --skill-bar: #1e2b3c;
+      --skill-fill: #3b82f6;
+      --toggle-icon: #f1c40f;
+    }
+
+    /* glassmorphism base */
+    .glass,
+    nav,
+    .project-card,
+    .cert-card,
+    .achievement-card,
+    .timeline-item,
+    .contact-form,
+    #scrollTop,
+    .skill-category,
+    .contact-info {
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    /* ===== PRELOADER ===== */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s;
+    }
+
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--skill-bar);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ===== LAYOUT ===== */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 5rem 0 4rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.02em;
+      border-left: 8px solid var(--primary);
+      padding-left: 1.5rem;
+    }
+
+    /* ===== NAVBAR (sticky, glass) ===== */
+    nav {
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
+      margin: 1rem 2rem;
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 60px;
+      background: var(--nav-bg);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .nav-menu a:hover {
+      color: var(--primary);
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    /* ===== LANDING with profile ===== */
+    .landing {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .landing-text {
+      flex: 1 1 300px;
+    }
+
+    .landing-text h1 {
+      font-size: 3.8rem;
+      font-weight: 700;
+      line-height: 1.1;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .typed {
+      font-size: 1.5rem;
+      color: var(--primary);
+      min-height: 3rem;
+      font-weight: 400;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .contact-links a,
+    .contact-links span {
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .landing-text p {
+      margin: 1.5rem 0;
+      color: var(--text-light);
+      max-width: 550px;
+      line-height: 1.6;
+    }
+
+    .landing-image {
+      flex: 1 1 250px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-img {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: var(--glow);
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      animation: fadeIn 1.4s;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* ===== SKILLS ===== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .skill-category {
+      padding: 2rem;
+    }
+
+    .skill-category h3 {
+      margin-bottom: 1.8rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .skill-item {
+      margin: 1.4rem 0;
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.3rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--skill-bar);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      background: var(--skill-fill);
+      width: 0%;
+      border-radius: 20px;
+      transition: width 0.4s ease;
+    }
+
+    .skill-item:hover .progress {
+      filter: brightness(1.1);
+    }
+
+    /* ===== PROJECTS ===== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      padding: 1.8rem;
+      transition: all 0.25s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--glow);
+      border-color: var(--primary-light);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 170px;
+      background: linear-gradient(145deg, #1e4a6f20, #2c6b9e20);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-size: 1rem;
+      border: 1px dashed var(--border);
+      margin-bottom: 1.2rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .project-date {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-card ul {
+      padding-left: 1.2rem;
+      margin: 0.8rem 0;
+      color: var(--text-light);
+    }
+
+    .tech-badge {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0 1.3rem;
+    }
+
+    .tech-badge span {
+      background: var(--primary);
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .card-btns {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .card-btns a,
+    .cert-btn,
+    .contact-form button,
+    #resumeBtn {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1.4rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .card-btns a:hover,
+    .cert-btn:hover,
+    .contact-form button:hover,
+    #resumeBtn:hover {
+      background: var(--primary-light);
+    }
+
+    /* ===== CERTIFICATES & TRAINING ===== */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .cert-card {
+      padding: 1.8rem 1rem;
+      text-align: center;
+    }
+
+    .cert-img {
+      width: 100%;
+      height: 110px;
+      background: #b0c4de30;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+
+    .cert-card h4 {
+      font-size: 1.2rem;
+      margin: 0.5rem 0 0.2rem;
+    }
+
+    .cert-card p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ===== ACHIEVEMENTS ===== */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .achievement-card {
+      padding: 1.8rem 1rem;
+      text-align: center;
+    }
+
+    .achievement-card i {
+      font-size: 2.4rem;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+    }
+
+    /* ===== TIMELINE (education + training) ===== */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .timeline-item {
+      padding: 1.5rem 2rem;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .timeline-year {
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 140px;
+    }
+
+    .timeline-content h3 {
+      margin-bottom: 0.2rem;
+      font-size: 1.3rem;
+    }
+
+    .timeline-content p {
+      color: var(--text-light);
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .contact-info {
+      flex: 1 1 280px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+    }
+
+    .contact-info a,
+    .contact-info div {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.05rem;
+      word-break: break-all;
+    }
+
+    .contact-form {
+      flex: 2 1 320px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 1rem 1.4rem;
+      border-radius: 50px;
+      color: var(--text);
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .contact-form textarea {
+      border-radius: 30px;
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .error-msg {
+      color: #ef4444;
+      font-size: 0.9rem;
+      margin-top: -0.5rem;
+    }
+
+    /* ===== SCROLL TOP ===== */
+    #scrollTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: 0.2s;
+      border: none;
+      color: var(--text);
+      font-size: 1.4rem;
+      z-index: 99;
+    }
+
+    #scrollTop.visible {
+      opacity: 1;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      h2 {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: absolute;
+        top: 80px;
+        left: 2rem;
+        right: 2rem;
+        flex-direction: column;
+        background: var(--nav-bg);
+        backdrop-filter: blur(12px);
+        padding: 2rem;
+        border-radius: 40px;
+        display: none;
+        text-align: center;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .landing {
+        text-align: center;
+        justify-content: center;
+      }
+
+      .contact-links {
+        justify-content: center;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- PRELOADER (preloader.html) -->
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <!-- STICKY NAV -->
+  <nav>
+    <div class="logo">SK</div>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="display: flex; gap: 0.5rem;">
+      <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+      <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- LANDING + ABOUT (full name, profile, fade/typing) -->
+    <section id="about">
+      <div class="landing">
+        <div class="landing-text">
+          <h1>Satyam Kumar</h1>
+          <div class="typed" id="typed"></div>
+          <!-- inline contact details under name -->
+          <p><strong>🧑‍💼 About Me</strong><br>I am a passionate Computer Science student who enjoys solving problems
+            and building practical applications. I have hands-on experience in C++, Python, Java, and SQL, along with
+            knowledge of machine learning and data analysis. I have worked on real-world projects such as crop
+            recommendation systems and traffic analysis models. I am always motivated to learn new technologies, improve
+            my skills, and contribute to meaningful projects. I believe in consistency, teamwork, and continuous
+            self-improvement.</p>
+        </div>
+        <div class="landing-image">
+          <!-- professional placeholder image with initials (modern) -->
+          <img src="profile.jpeg" alt="Satyam Kumar" class="profile-img">
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS (Technical / Soft) -->
+    <section id="skills">
+      <h2>🛠️ Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3><i class="fas fa-code"></i> Technical Skills</h3>
+          <div class="skill-item">
+            <div class="skill-info"><span>C++</span><span>85%</span></div>
+            <div class="progress-bar">
+              <div class="progress" style="width:85%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>Python</span><span>80%</span></div>
+            <div class="progress-bar">
+              <div class="progress" style="width:80%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>Java</span><span>70%</span></div>
+            <div class="progress-bar">
+              <div class="progress" style="width:70%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>SQL</span><span>75%</span></div>
+            <div class="progress-bar">
+              <div class="progress" style="width:75%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>Scikit-learn / XGBoost</span><span>70%</span></div>
+            <div class="progress-bar">
+              <div class="progress" style="width:70%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>NLTK / Fuzzy</span><span>65%</span></div>
+            <div class="progress-bar">
+              <div class="progress" style="width:65%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3><i class="fas fa-users"></i> Soft Skills</h3>
+          <div class="skill-item">
+            <div class="skill-info"><span>Problem Solving</span><span>90%</span></div>
+            <div class="progress-bar">
+              <div class="progress" style="width:90%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>Team Player</span><span>85%</span></div>
+            <div class="progress-bar">
+              <div class="progress" style="width:85%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>Quick Learner</span><span>88%</span></div>
+            <div class="progress-bar">
+              <div class="progress" style="width:88%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS (with bullet, tech, images as placeholders) -->
+    <section id="projects">
+      <h2>🚀 Projects</h2>
+      <div class="projects-grid">
+        <!-- Crop Rotation -->
+        <div class="project-card">
+          <div class="project-img"><img src="crop-production.jpeg" alt="Crop Rotation"
+              style="width:100%;height:100%;object-fit:cover;border-radius:20px;"></div>
+          <h3>Crop Rotation Recommendation</h3>
+          <div class="project-date"><i class="far fa-calendar-alt"></i> Mar 2025</div>
+          <ul>
+            <li>Preprocessed agri datasets with scikit‑learn, reduced missing values, improved model performance by 30%.
+            </li>
+            <li>Built Flask + HTML web app with user-friendly interface.</li>
+            <li>ML model using NPK, rainfall, humidity, temp, pH → 85% accuracy.</li>
+          </ul>
+          <div class="tech-badge"><span>Python</span><span>Flask</span><span>scikit-learn</span></div>
+          <div class="card-btns"><a
+              href="https://github.com/satyamkumar04321/Crop-Rotation-Recommendation-System.git"><i
+                class="fab fa-github"></i> GitHub</a></div>
+        </div>
+        <!-- Inventory Management -->
+        <div class="project-card">
+          <div class="project-img"><img src="inventory.webp" alt="Inventory Management"
+              style="width:100%;height:100%;object-fit:cover;border-radius:20px;"></div>
+          <h3>Inventory Management System</h3>
+          <div class="project-date"><i class="far fa-calendar-alt"></i> Jul 2025</div>
+          <ul>
+            <li>Dynamic UI for add/update/delete inventory items.</li>
+            <li>Search & filter for efficient product management.</li>
+            <li>Input validation + low‑stock/expiry alerts → 25% accuracy gain.</li>
+          </ul>
+          <div class="tech-badge"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>LocalStorage</span>
+          </div>
+          <div class="card-btns"><a href="https://github.com/satyamkumar04321/inventory-management-system.git"><i
+                class="fab fa-github"></i> GitHub</a></div>
+        </div>
+        <!-- MARKDOWN EDITOR -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="markdown-editor.jpeg" alt="Markdown Editor"
+              style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+          </div>
+
+          <h3>Markdown Editor</h3>
+
+          <div class="project-date">
+            <i class="far fa-calendar-alt"></i> Aug 2025
+          </div>
+
+          <ul>
+            <li>Built a real-time Markdown editor with live preview functionality.</li>
+            <li>Implemented syntax formatting (headings, bold, italic, lists, code blocks).</li>
+            <li>Enabled export to PDF/HTML and auto-save using LocalStorage.</li>
+          </ul>
+
+          <div class="tech-badge">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Markdown.js</span>
+          </div>
+
+          <div class="card-btns">
+            <a href="https://github.com/satyamkumar04321/MARKDOWN-EDITOR.git"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+        <!-- ONLINE MUSIC STREAMING -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="music.jpeg" alt="Markdown Editor"
+              style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+          </div>
+          <h3>Online Music Streaming</h3>
+
+          <div class="project-date">
+            <i class="far fa-calendar-alt"></i> Sep 2025
+          </div>
+
+          <ul>
+            <li>Developed a web-based music streaming application with play, pause, next, and previous controls.</li>
+            <li>Implemented playlist management and search functionality for better user experience.</li>
+            <li>Integrated audio controls with progress bar and volume adjustment using JavaScript.</li>
+          </ul>
+
+          <div class="tech-badge">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Audio API</span>
+          </div>
+
+          <div class="card-btns">
+            <a href="https://github.com/satyamkumar04321/online-music-streaming.git"><i class="fab fa-github"></i>
+              GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAINING (added as separate highlight) -->
+    <section id="training" style="padding-top: 0;">
+      <h2>📘 Training</h2>
+      <div class="timeline-item glass" style="margin-bottom: 2rem;">
+        <span class="timeline-year">Jun 2025 – Jul 2025</span>
+        <div class="timeline-content">
+          <h3>Advanced Data Structures & Algorithms</h3>
+          <p>Lovely Professional University — Implemented Heaps, Tries, Graphs; improved algorithm efficiency by 30%;
+            Greedy, Divide & Conquer, Backtracking.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section id="certificates">
+      <h2>📜 Certificates</h2>
+      <div class="certs-grid">
+        <div class="cert-card">
+          <div class="cert-img"><i class="fas fa-certificate fa-2x"></i></div>
+          <h4>Advanced Data Structure</h4>
+          <p>LPU · July 2025</p><button class="cert-btn"
+            onclick="window.open('https://drive.google.com/file/d/1sAYzRarG6gINew6ceVSyAndalNwtnCTQ/view?usp=drivesdk','_blank')">View</button>
+        </div>
+        <div class="cert-card">
+          <div class="cert-img"><i class="fas fa-cloud fa-2x"></i></div>
+          <h4>Cloud Computing</h4>
+          <p>NPTEL · Apr 2025</p><button class="cert-btn"
+            onclick="window.open('https://archive.nptel.ac.in/content/noc/NOC25/SEM1/Ecertificates/106/noc25-cs11/Course/NPTEL25CS11S153730262304250650.pdf','_blank')">View</button>
+        </div>
+        <div class="cert-card">
+          <div class="cert-img"><i class="fab fa-python fa-2x"></i></div>
+          <h4>Python</h4>
+          <p>CSEPathshala · May 2024</p><button class="cert-btn"
+            onclick="window.open('https://drive.google.com/file/d/1t5k-00lc1HtAxmTRnSa5GGDLwrV_gowk/view?usp=drivesdk','_blank')">View</button>
+        </div>
+        <div class="cert-card">
+          <div class="cert-img"><i class="fas fa-laptop-code fa-2x"></i></div>
+          <h4>Software Development</h4>
+          <p>Coursera · Jan 2024</p><button class="cert-btn"
+            onclick="window.open('https://www.coursera.org/account/accomplishments/verify/CFNB2ZP7RP4Y','_blank')">View</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements">
+      <h2>🏆 Achievements</h2>
+      <div class="achievements-grid">
+        <div class="achievement-card"><i class="fas fa-chart-line"></i>
+          <h4>ML model perf +30%</h4>
+          <p>in projects</p>
+        </div>
+        <div class="achievement-card"><i class="fas fa-percent"></i>
+          <h4>85% accuracy</h4>
+          <p>recommendation system</p>
+        </div>
+        <div class="achievement-card"><i class="fas fa-arrow-up"></i>
+          <h4>+20% prediction</h4>
+          <p>traffic model accuracy</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATIONAL JOURNEY (timeline) + intermediate & matriculation -->
+    <section id="education">
+      <h2>🎓 Education</h2>
+      <div class="timeline">
+        <div class="timeline-item"><span class="timeline-year">Aug 2023 – Present</span>
+          <div class="timeline-content">
+            <h3>B.Tech CSE</h3>
+            <p>Lovely Professional University, Punjab · CGPA 7.65</p>
+          </div>
+        </div>
+        <div class="timeline-item"><span class="timeline-year">Intermediate</span>
+          <div class="timeline-content">
+            <h3>RIVER VALLEY SCHOOL, Bihar</h3>
+            <p>74.2%</p>
+          </div>
+        </div>
+        <div class="timeline-item"><span class="timeline-year">Matriculation</span>
+          <div class="timeline-content">
+            <h3>RK CHILDRENS ACADEMY, Bihar</h3>
+            <p>73.2%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION + FORM -->
+    <section id="contact">
+      <h2>📞 Contact Me</h2>
+      <div class="contact-row">
+        <div class="contact-info">
+          <div><i class="fas fa-envelope fa-xl"></i> satyamkumar04321@gmail.com</div>
+          <div><i class="fas fa-phone-alt fa-xl"></i> +91 7321896184</div>
+          <a href="https://linkedin.com/in/satyamkumar04321/" target="_blank"><i class="fab fa-linkedin fa-xl"></i>
+            satyamkumar04321</a>
+          <a href="https://github.com/satyamkumar04321" target="_blank"><i class="fab fa-github fa-xl"></i>
+            satyamkumar04321</a>
+          <!-- resume download button (bonus) -->
+          <a id="resumeBtn" href="SATYAM_GENEREAL_CV(2).pdf" download><i class="fas fa-download"></i> Download
+            resume</a>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <input type="text" id="name" placeholder="Your name" required>
+          <input type="email" id="email" placeholder="Email address" required>
+          <textarea id="message" placeholder="Message" required></textarea>
+          <div class="error-msg" id="formError"></div>
+          <button type="submit"><i class="fas fa-paper-plane"></i> Send message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- SCROLL TO TOP -->
+  <div id="scrollTop"><i class="fas fa-arrow-up"></i></div>
+
+  <script>
+    (function () {
+      // PRELOADER
+      window.addEventListener('load', () => {
+        document.getElementById('preloader').style.opacity = '0';
+        setTimeout(() => document.getElementById('preloader').style.display = 'none', 400);
+      });
+
+      // TYPING ANIMATION
+      const typedEl = document.getElementById('typed');
+      const phrases = ['CS student | ML enthusiast', 'data structures & algorithms', 'building intelligent systems'];
+      let i = 0, j = 0, current = '', isDeleting = false;
+      function typeEffect() {
+        if (i >= phrases.length) i = 0;
+        const full = phrases[i];
+        if (isDeleting) {
+          current = full.substring(0, j--);
+        } else {
+          current = full.substring(0, j++);
+        }
+        typedEl.innerHTML = current;
+        if (!isDeleting && j === full.length + 1) { isDeleting = true; setTimeout(typeEffect, 1500); return; }
+        if (isDeleting && j === 0) { isDeleting = false; i++; }
+        setTimeout(typeEffect, isDeleting ? 60 : 100);
+      }
+      typeEffect();
+
+      // HAMBURGER
+      const hamburger = document.getElementById('hamburger');
+      const navMenu = document.getElementById('navMenu');
+      hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+      document.querySelectorAll('.nav-menu a').forEach(link => link.addEventListener('click', () => navMenu.classList.remove('active')));
+
+      // DARK MODE
+      const themeToggle = document.getElementById('themeToggle');
+      const icon = themeToggle.querySelector('i');
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        if (document.body.classList.contains('dark')) icon.className = 'fas fa-sun';
+        else icon.className = 'fas fa-moon';
+      });
+
+      // SCROLL TOP
+      const scrollBtn = document.getElementById('scrollTop');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) scrollBtn.classList.add('visible');
+        else scrollBtn.classList.remove('visible');
+      });
+      scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // CONTACT FORM VALIDATION
+      const form = document.getElementById('contactForm');
+      const errorSpan = document.getElementById('formError');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const msg = document.getElementById('message').value.trim();
+        if (!name || !email || !msg) {
+          errorSpan.textContent = 'All fields are required.';
+          return;
+        }
+        if (!email.includes('@') || !email.includes('.')) {
+          errorSpan.textContent = 'Enter a valid email.';
+          return;
+        }
+        errorSpan.textContent = '';
+        alert('Message sent (demo). Thank you!');
+        form.reset();
+      });
+
+      // smooth scroll for anchor links
+      document.querySelectorAll('.nav-menu a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href');
+          if (targetId.startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(targetId);
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+    })();
+  </script>
+  <!-- preloader filename: preloader.html (mentioned) -->
+</body>
+
+</html>
